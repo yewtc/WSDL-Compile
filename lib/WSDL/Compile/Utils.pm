@@ -25,6 +25,7 @@ BEGIN {
 }
 
 use Class::MOP;
+use Class::Load;
 use Moose::Meta::Class;
 use MooseX::Params::Validate qw(pos_validated_list);
 use Perl6::Junction qw( any );
@@ -169,7 +170,7 @@ sub load_class_for_meta {
         { isa => 'Str' },
     );
 
-    Class::MOP::load_class( $class_name );
+    Class::Load::load_class( $class_name );
     return Moose::Meta::Class->initialize(
         $class_name
     );

@@ -18,6 +18,7 @@ my $builder = Module::Build->new(
         'List::Util'               => '1.21',
         'Perl6::Junction'          => '1.40000',
         'XML::LibXML'              => '1.69',
+        'Class::Load'              => 0.20, 
     },
     add_to_cleanup     => ['WSDL-Compile-*'],
     create_makefile_pl => 'passthrough',
