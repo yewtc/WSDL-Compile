@@ -24,6 +24,12 @@ my $builder = Module::Build->new(
     create_makefile_pl => 'passthrough',
     create_readme      => 0, # Pod::Parser doesn't support =encoding
     create_licence     => 1,
+    meta_merge => {
+        resources => {
+            repository => 'https://github.com/yewtc/WSDL-Compile',
+            bugtracker => 'https://github.com/yewtc/WSDL-Compile/issues'
+        }
+    },
 );
 
 $builder->create_build_script();
