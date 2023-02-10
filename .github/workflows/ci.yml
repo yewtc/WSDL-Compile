@@ -1,4 +1,4 @@
-name: Shell
+name: CI
 
 on: 
   push:
@@ -6,12 +6,58 @@ on:
   workflow_dispatch:
   
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Shell - View environment
-        run: | 
-          uname -a 
-          printenv | sort
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-latest , macos-latest, windows-latest]
+        perl: ['5.14', '5.30', '5.36']
+        exclude:
+          - runner: windows-latest
+            perl: '5.36'
+
+    runs-on: ${{matrix.runner}}
+    name: ${{matrix.runner}} Perl {{matrix.perl}}
+
+    steps: 
+    - uses: actions/checkout@v3
+
+    - name: Set up perl
+      uses: shogo82158/actions-setup-perl@v1
+      with:
+        perl-version: ${{ matrix.perl }}
+        distrubuition: {{ (matrix.runner == 'windows-latest' && 'strawberry') || 'default' }}
+    - name: Show Perl Version
+      run: |
+        perl -v 
+    
+    - name: Install Modules
+      run: | 
+        cpanm -v 
+        cpanm --installdeps --notest
+
+    - name: Show Errors of Windows
+      if: ${{ failure() && matrix.runner == 'windows-latest' }}
+      run: | 
+        ls -l C:/Users/
+        ls -l C:/Users/RUNNER~1/
+        cat C:/Users/runneradmin/.cpanm/work/*/build.log
+
+    - name: Show Errors of Ubuntu
+      if: ${{ failure() && startsWith(matrix.runner) == 'ubuntu-' }}
+      run: | 
+        cat C:/home/runner/.cpanm/work/*/build.log
+
+    - name: Show Errors of OSX
+      if: ${{ failure() && startsWith(matrix.runner) == 'macos-' }}
+      run: | 
+        cat C:/Users/runner/.cpanm/work/*/build.log
   
+    - name: Run tests
+      env:
+        AUTHOR_TESTING: 1
+        RELEASE:TESTING: 1
+      run: | 
+        perl Makefile.PL
+        make 
+        make test
