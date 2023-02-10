@@ -44,12 +44,12 @@ jobs:
         cat C:/Users/runneradmin/.cpanm/work/*/build.log
 
     - name: Show Errors of Ubuntu
-      if: ${{ failure() && startsWith(matrix.runner),  'ubuntu-') }}
+      if: ${{ failure() && startsWith(matrix.runner,  'ubuntu-') }}
       run: | 
         cat C:/home/runner/.cpanm/work/*/build.log
 
     - name: Show Errors of OSX
-      if: ${{ failure() && startsWith(matrix.runner), 'macos-') }}
+      if: ${{ failure() && startsWith(matrix.runner, 'macos-') }}
       run: | 
         cat C:/Users/runner/.cpanm/work/*/build.log
   
