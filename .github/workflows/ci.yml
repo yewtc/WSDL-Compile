@@ -41,7 +41,7 @@ jobs:
         ./Build installdeps --cpan_client 'cpanm --notest' 
         
     - name: Show Errors on Windows 
-      if: ${{ failure() &&  matrix.runner ==  'windows-latest')}}
+      if: ${{ failure() &&  matrix.runner ==  'windows-latest'}}
       run: |
         ls -l C:/Users/
         ls -l C:/Users/RUNNER-1
