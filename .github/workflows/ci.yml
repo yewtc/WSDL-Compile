@@ -10,8 +10,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # runner: [ubuntu-latest , macos-11, windows-latest]
-        runner: [ macos-11 ]
+        runner: [ubuntu-latest , macos-11, windows-latest]
+        runner: [ubuntu-latest , windows-latest]
         perl: ['5.14', '5.30', '5.36']
         exclude:
           - runner: windows-latest
@@ -53,12 +53,12 @@ jobs:
       run: |
         cat /home/runner/.cpanm/work/*/build.log
         
-    - name: Show Errors on OSX
-      # if: ${{ failure() && startsWith( matrix.runner, 'macos-')}}
-      run: |
-        uname -a 
-        ls -al /Users/runner
-        cat  /Users/runner/.cpanm/work/*/build.log
+    # - name: Show Errors on OSX
+    #   # if: ${{ failure() && startsWith( matrix.runner, 'macos-')}}
+    #   run: |
+    #     uname -a 
+    #     ls -al /Users/runner
+    #     cat  /Users/runner/.cpanm/work/*/build.log
 
     - name: Run tests
 
