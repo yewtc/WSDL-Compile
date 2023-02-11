@@ -589,12 +589,9 @@ sub build_types {
         delete $self->_complexTypes->{$name};
         my $name_by_type_constraint = $name . " isa " . $attr->type_constraint->name;
         if (exists $seen{$name}) {
-            print "$name has been seen and ";
             if (exists $seen_by_type_constraint{$name_by_type_constraint} ) {
-                print "is the same\n";
                 next;
             }
-            print " is different\n";
             die "Cannot redefine complex type " , $name , " as a " , $attr->type_constraint->name , "; conflicts with ", $seen{$name} , " in ", $attr->associated_class->name;
         }
         
