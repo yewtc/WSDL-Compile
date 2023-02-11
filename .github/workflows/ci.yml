@@ -36,7 +36,7 @@ jobs:
       run: | 
         cpanm Module::Build
         perl Build.PL
-        ./Build installdeps
+        ./Build installdeps --cpan_client 'cpanm --notest' 
   
     - name: Run tests
       env:
