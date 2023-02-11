@@ -32,13 +32,16 @@ jobs:
       run: |
         perl -v 
     
+    - name: Install deps.
+      run: | 
+        cpanm Module::Build
+        perl Build.PL
+        ./Build installdeps
+  
     - name: Run tests
       env:
         AUTHOR_TESTING: 1
         RELEASE:TESTING: 1
       run: | 
-        cpanm Module::Build
-        perl Build.PL
-        Build installdeps
-        Build test
+        ./Build test
   
