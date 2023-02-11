@@ -54,7 +54,7 @@ jobs:
         cat /home/runner/.cpanm/work/*/build.log
         
     - name: Show Errors on OSX
-      if: ${{ failure() && startsWith( matrix.runner, 'macos-')}}
+      # if: ${{ failure() && startsWith( matrix.runner, 'macos-')}}
       run: |
         uname -a 
         ls -al /Users/runner
