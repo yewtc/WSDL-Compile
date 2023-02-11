@@ -31,33 +31,11 @@ jobs:
       run: |
         perl -v 
     
-    - name: Install Modules
-      run: | 
-        cpanm -v 
-        cpanm --installdeps --notest
-
-    - name: Show Errors of Windows
-      if: ${{ failure() && matrix.runner == 'windows-latest' }}
-      run: | 
-        ls -l C:/Users/
-        ls -l C:/Users/RUNNER~1/
-        cat C:/Users/runneradmin/.cpanm/work/*/build.log
-
-    - name: Show Errors of Ubuntu
-      if: ${{ failure() && startsWith(matrix.runner,  'ubuntu-') }}
-      run: | 
-        cat C:/home/runner/.cpanm/work/*/build.log
-
-    - name: Show Errors of OSX
-      if: ${{ failure() && startsWith(matrix.runner, 'macos-') }}
-      run: | 
-        cat C:/Users/runner/.cpanm/work/*/build.log
-  
     - name: Run tests
       env:
         AUTHOR_TESTING: 1
         RELEASE:TESTING: 1
       run: | 
-        perl Makefile.PL
-        make 
-        make test
+        perl Build.PL
+        Build test
+  
