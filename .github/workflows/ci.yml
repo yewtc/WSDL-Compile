@@ -39,7 +39,24 @@ jobs:
         cpanm Module::Build --notest
         perl Build.PL
         ./Build installdeps --cpan_client 'cpanm --notest' 
-  
+        
+    - name: Show Errors on Windows 
+      if: ${{ failure() &&  matrix.runner ==  'windows-latest')}}
+      run: |
+        ls -l C:/Users/
+        ls -l C:/Users/RUNNER-1
+        cat /Users/runneradmin/.cpanm/work/*/build.log
+        
+    - name: Show Errors on Ubuntu 
+      if: ${{ failure() && startsWith( matrix.runner, 'ubuntu-')}}
+      run: |
+        cat /home/runner/.cpanm/work/*/build.log
+        
+    - name: Show Errors on OSX
+      if: ${{ failure() && startsWith( matrix.runner, 'macos-')}}
+      run: |
+        cat /User/runner/.cpanm/work/*/build.log
+
     - name: Run tests
 
       run: | 
