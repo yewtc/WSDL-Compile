@@ -14,6 +14,7 @@ my %build_requires = (
     'Perl6::Junction'          => '1.40000',
     'XML::LibXML'              => '1.69',
     'Class::Load'              => 0.20,
+    'DateTime'                 => 0,
 
 );
 if ( $ENV{AUTHOR_TESTING} ) {
