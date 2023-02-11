@@ -34,15 +34,16 @@ jobs:
         perl -v 
     
     - name: Install deps.
+      env:
+        AUTHOR_TESTING: 1
+        RELEASE:TESTING: 1
       run: | 
         cpanm Module::Build
         perl Build.PL
         ./Build installdeps --cpan_client 'cpanm --notest' 
   
     - name: Run tests
-      env:
-        AUTHOR_TESTING: 1
-        RELEASE:TESTING: 1
+
       run: | 
         ./Build test
   
