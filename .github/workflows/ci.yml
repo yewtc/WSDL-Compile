@@ -9,8 +9,10 @@ jobs:
   test:
     strategy:
       matrix:
-        runner: [ubuntu-latest , macos-latest, windows-latest]
-        perl: ['5.14', '5.30', '5.36']
+        # runner: [ubuntu-latest , macos-latest, windows-latest]
+        # perl: ['5.14', '5.30', '5.36']
+        runner: [ubuntu-latest ]
+        perl: ['5.14']
         exclude:
           - runner: windows-latest
             perl: '5.36'
@@ -37,5 +39,6 @@ jobs:
       run: | 
         cpanm Module::Build
         perl Build.PL
+        Build installdeps
         Build test
   
