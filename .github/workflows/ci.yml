@@ -19,7 +19,7 @@ jobs:
             perl: '5.36'
 
     runs-on: ${{matrix.runner}}
-    name: ${{matrix.runner}} Perl {{matrix.perl}}
+    name: ${{matrix.runner}} Perl ${{matrix.perl}}
 
     steps: 
     - uses: actions/checkout@v3
